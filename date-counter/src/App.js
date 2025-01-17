@@ -29,6 +29,9 @@ function Counter() {
     setCount((c) => c + step);
   }
 
+  const date = new Date();
+  date.setDate(date.getDate() + count);
+
   return (
     <>
       <div>
@@ -42,7 +45,7 @@ function Counter() {
         <button onClick={handlerCountPlus}>+</button>
       </div>
       <p>
-        {count} days from today is {new Date().getDate() + count}
+        {count} days from today is {date.toDateString()}
       </p>
     </>
   );
