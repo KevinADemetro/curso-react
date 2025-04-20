@@ -15,38 +15,33 @@ function ExtensionsSection() {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
 
   function handleRemoveExetension(id) {
-    setExtensionList((extensions) =>
-      extensions.filter((extension) => extension.id !== id)
-    );
+    const updated = allExtensions.filter((extension) => extension.id !== id);
+    setAllExtensions(updated);
+    applyFilter(selectedFilter, updated);
   }
 
   function handleFilter(filter) {
     setSelectedFilter(filter);
-    applyfilter(filter, extensionsList);
+    applyFilter(filter, allExtensions);
   }
 
   function handleChangeActive(id) {
-    setExtensionList((extensions) =>
-      extensions.map((extension) =>
-        extension.id === id
-          ? { ...extension, isActive: !extension.isActive }
-          : extension
-      )
+    const updated = allExtensions.map((extension) =>
+      extension.id === id
+        ? { ...extension, isActive: !extension.isActive }
+        : extension
     );
-    applyfilter(selectedFilter, extensionsList);
+    setAllExtensions(updated);
+    applyFilter(selectedFilter, updated);
   }
 
-  function applyfilter(filter, list) {
+  function applyFilter(filter, list) {
     if (filter === "Todos") {
-      setExtensionList(extensionsData);
+      setExtensionList(list);
     } else if (filter === "Ativo") {
-      setExtensionList((extensions) =>
-        extensions.filter((extension) => extension.isActive)
-      );
+      setExtensionList(list.filter((extension) => extension.isActive));
     } else if (filter === "Inativo") {
-      setExtensionList((extensions) =>
-        extensions.filter((extension) => !extension.isActive)
-      );
+      setExtensionList(list.filter((extension) => !extension.isActive));
     }
   }
   return (
