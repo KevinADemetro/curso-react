@@ -22,7 +22,21 @@ function ExtensionsSection() {
 
   function handleFilter(filter) {
     setSelectedFilter(filter);
+    applyfilter(filter, extensionsList);
+  }
 
+  function handleChangeActive(id) {
+    setExtensionList((extensions) =>
+      extensions.map((extension) =>
+        extension.id === id
+          ? { ...extension, isActive: !extension.isActive }
+          : extension
+      )
+    );
+    applyfilter(selectedFilter, extensionsList);
+  }
+
+  function applyfilter(filter, list) {
     if (filter === "Todos") {
       setExtensionList(extensionsData);
     } else if (filter === "Ativo") {
@@ -34,16 +48,6 @@ function ExtensionsSection() {
         extensions.filter((extension) => !extension.isActive)
       );
     }
-  }
-
-  function handleChangeActive(id) {
-    setExtensionList((extensions) =>
-      extensions.map((extension) =>
-        extension.id === id
-          ? { ...extension, isActive: !extension.isActive }
-          : extension
-      )
-    );
   }
   return (
     <section>
